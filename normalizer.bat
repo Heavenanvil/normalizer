@@ -1,5 +1,9 @@
-:: normalizer (update 1) - © Heavenanvil (heavenanvil@gmail.com / https://github.com/Heavenanvil)
+:: «normalizer»
 :: 
+:: © Heavenanvil
+:: E-mail: heavenanvil@gmail.com
+:: version 1.1
+::
 :: данный скрипт при помощи консольного приложения ffmpeg позволяет
 :: из mkv-видеофайла вытащить звуковую дорожку ac3, 
 :: если она в формате 5.1, то конвертирует её в стерео (2.0),
@@ -7,7 +11,7 @@
 :: и упаковывает в новый mkv файл, удаляя все лишние звуковые дорожки и субтитры.
 :: 
 :: Ссылка на актуальный ffmpeg.exe
-:: ffmpeg.zeranoe.com
+:: https://ffmpeg.zeranoe.com/builds/
 
 :: Объявляем переменные
 set file=myfavoritefilm
@@ -38,7 +42,6 @@ ffmpeg -i "%file%++.%aformat%" -y -filter:a "volume=7dB" "%file%+++.%aformat%"
 ffmpeg -i "%file%++++.%aformat%" -y -filter:a "volume=4dB" "%file%+++++.%aformat%"
 
 :: Шаг 8 - Собираем контейнер обратно
-:: ffmpeg -i "%file%+.%format%" -i "%file%+++++.%aformat%" -y -c:a copy -c:v copy "%file%_normalize.%format%"
 ffmpeg -i "%file%+.%format%" -i "%file%+++++.%aformat%" -c:v copy -c:a copy -map 0:v:0 -map 1:a:0 "%file%_norm.%format%"
 
 :: Шаг 9 - Удаляем лишние файлы
